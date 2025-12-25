@@ -1,0 +1,115 @@
+---
+title: "Introduction"
+description: "Welcome to the Book Template - Learn how to get started with this modern documentation platform"
+order: 1
+---
+
+# Introduction
+
+Welcome to the **Book Template**, a modern and beautiful platform for creating online books, documentation, coding tutorials, or any book-style web applications.
+
+## What is Book Template?
+
+Book Template is a Next.js-based template that provides everything you need to create professional-looking documentation or book content. It comes with:
+
+- **Multi-language support** for reaching global audiences
+- **Dark and light themes** for comfortable reading
+- **MDX content** for mixing Markdown with React components
+- **Responsive design** that works on all devices
+
+## Getting Started
+
+To get started with Book Template, follow these simple steps:
+
+1. Clone the repository
+2. Install dependencies with `pnpm install`
+3. Start the development server with `pnpm dev`
+4. Open your browser to `http://localhost:3000`
+
+### Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- **Node.js** 18 or later
+- **pnpm** (recommended) or npm
+- A code editor like VS Code
+
+## Key Features
+
+### Multi-Language Support
+
+Book Template includes built-in internationalization. Currently supports:
+
+| Language | Code | Status      |
+| -------- | ---- | ----------- |
+| English  | en   | ✅ Complete |
+| Lao      | lo   | ✅ Complete |
+
+### Theme System
+
+The template includes a sophisticated theme system with:
+
+- Automatic system preference detection
+- Manual toggle between dark and light modes
+- No flash on page load
+- CSS variables for easy customization
+
+### Content Organization
+
+Content is organized using MDX files with frontmatter:
+
+```mdx
+---
+title: "Chapter Title"
+description: "Brief description"
+order: 1
+---
+
+# Your content here
+```
+
+## Next Steps
+
+Ready to dive deeper? Check out these resources:
+
+- **Chapter 2**: Advanced features and customization
+- **API Reference**: Technical documentation
+- **Examples**: Real-world use cases
+
+> 💡 **Tip**: Use the table of contents on the right side to quickly navigate through long documents.
+
+## Code Examples
+
+Here's a simple React component example:
+
+```tsx
+function Greeting({ name }: { name: string }) {
+  return (
+    <div className="p-4 rounded-lg bg-primary/10">
+      <h2>Hello, {name}!</h2>
+      <p>Welcome to our documentation.</p>
+    </div>
+  );
+}
+```
+
+And here's some JavaScript:
+
+```javascript
+// Fetch chapters from the API
+const response = await fetch("/api/chapters?locale=en");
+const chapters = await response.json();
+
+console.log("Found", chapters.length, "chapters");
+```
+
+## Summary
+
+In this introduction, we've covered:
+
+- What Book Template is and why you'd use it
+- How to get started quickly
+- Key features like multi-language support and themes
+- Basic content organization
+
+Continue to the next chapter to learn about advanced features!

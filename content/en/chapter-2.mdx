@@ -1,0 +1,152 @@
+---
+title: "Customization Guide"
+description: "Learn how to customize the Book Template to match your brand and requirements"
+order: 2
+---
+
+# Customization Guide
+
+This chapter covers how to customize the Book Template to match your brand identity and specific requirements.
+
+## Branding
+
+### Logo
+
+To change the logo, update the `Header.tsx` component:
+
+```tsx
+// components/layout/Header.tsx
+<Link href="/" className="flex items-center gap-2">
+  <YourLogoComponent />
+  <span>Your Brand Name</span>
+</Link>
+```
+
+### Colors
+
+The color scheme is defined using CSS variables in `globals.css`:
+
+```css
+:root {
+  --primary: oklch(0.65 0.19 160);
+  --primary-foreground: oklch(1 0 0);
+  /* Add more colors... */
+}
+```
+
+## Typography
+
+### Fonts
+
+The template uses Geist fonts by default. To change fonts:
+
+1. Import your font in `app/layout.tsx`
+2. Update the CSS variables
+
+```tsx
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  variable: "--font-sans",
+  subsets: ["latin"],
+});
+```
+
+### Text Styles
+
+Customize text styles in the `globals.css` file:
+
+```css
+.mdx-content h1 {
+  @apply text-4xl font-bold mt-8 mb-4;
+}
+
+.mdx-content p {
+  @apply my-4 leading-relaxed;
+}
+```
+
+## Content Structure
+
+### Adding New Chapters
+
+1. Create a new `.mdx` file in the `content/` folder
+2. Add frontmatter with title, description, and order
+3. Write your content in Markdown
+
+### Chapter Order
+
+The `order` field in frontmatter determines the chapter sequence:
+
+| Order | Chapter         |
+| ----- | --------------- |
+| 1     | Introduction    |
+| 2     | Customization   |
+| 3     | Advanced Topics |
+| 4     | Deployment      |
+
+## Translations
+
+### Adding a New Language
+
+1. Create a new locale folder: `content/[locale]/`
+2. Add translation file: `lib/i18n/locales/[locale].json`
+3. Update `LanguageContext.tsx` to include the new language
+
+```json
+{
+  "home": "Home",
+  "chapters": "Chapters",
+  "tableOfContents": "Table of Contents"
+}
+```
+
+## Advanced Customization
+
+### Custom MDX Components
+
+Extend the `mdx-components.tsx` file to add custom components:
+
+```tsx
+export function useMDXComponents(components: MDXComponents) {
+  return {
+    ...components,
+    // Custom callout component
+    Callout: ({ children, type }) => (
+      <div className={`callout callout-${type}`}>{children}</div>
+    ),
+  };
+}
+```
+
+### Sidebar Configuration
+
+Modify `Sidebar.tsx` to customize navigation:
+
+- Add sections/groups
+- Include external links
+- Add icons to menu items
+
+## Environment Variables
+
+Configure your deployment with these environment variables:
+
+```env
+# .env.example
+NEXT_PUBLIC_APP_NAME="Your Book Name"
+NEXT_PUBLIC_APP_URL=https://your-domain.com
+NEXT_PUBLIC_ENABLE_SEARCH=true
+```
+
+## Summary
+
+In this chapter, we covered:
+
+- How to customize branding (logo, colors)
+- Typography and font changes
+- Content structure and chapter organization
+- Adding new languages
+- Advanced MDX customization
+- Environment configuration
+
+Next, explore deployment options in Chapter 3!

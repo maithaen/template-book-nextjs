@@ -1,26 +1,355 @@
 @import "tailwindcss";
 
+/* ============================
+   Design System - CSS Variables
+   ============================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base Colors - Light Mode */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.145 0 0);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+
+  /* Brand Colors */
+  --primary: oklch(0.65 0.19 160);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.145 0 0);
+
+  /* Status Colors */
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+  --success: oklch(0.65 0.19 145);
+  --success-foreground: oklch(1 0 0);
+  --warning: oklch(0.75 0.15 85);
+  --warning-foreground: oklch(0.145 0 0);
+
+  /* Sidebar */
+  --sidebar-width: 272px;
+  --sidebar-width-collapsed: 0px;
+  --header-height: 64px;
+
+  /* Radius */
+  --radius: 0.5rem;
 }
+
+/* Dark Mode */
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.556 0 0);
+
+  /* Brand Colors - Dark Mode */
+  --primary: oklch(0.7 0.19 160);
+  --primary-foreground: oklch(0.145 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+
+  /* Status Colors - Dark Mode */
+  --destructive: oklch(0.6 0.2 25);
+  --destructive-foreground: oklch(0.985 0 0);
+}
+
+/* ============================
+   Tailwind Theme Configuration
+   ============================ */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================
+   Base Styles
+   ============================ */
+
+* {
+  border-color: var(--border);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+/* ============================
+   Typography
+   ============================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+/* ============================
+   Scrollbar Styling
+   ============================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+/* ============================
+   MDX Content Styles
+   ============================ */
+
+.mdx-content {
+  @apply leading-relaxed;
+}
+
+.mdx-content h1 {
+  @apply text-4xl font-bold mt-8 mb-4;
+}
+
+.mdx-content h2 {
+  @apply text-3xl font-bold mt-8 mb-4 pb-2 border-b border-border;
+}
+
+.mdx-content h3 {
+  @apply text-2xl font-semibold mt-6 mb-3;
+}
+
+.mdx-content h4 {
+  @apply text-xl font-semibold mt-4 mb-2;
+}
+
+.mdx-content p {
+  @apply my-4;
+}
+
+.mdx-content ul {
+  @apply my-4 ml-6 list-disc;
+}
+
+.mdx-content ol {
+  @apply my-4 ml-6 list-decimal;
+}
+
+.mdx-content li {
+  @apply my-1;
+}
+
+.mdx-content blockquote {
+  @apply my-4 pl-4 border-l-4 border-primary italic text-muted-foreground;
+}
+
+.mdx-content table {
+  @apply w-full my-4 border-collapse;
+}
+
+.mdx-content th {
+  @apply px-4 py-2 text-left font-semibold bg-muted border border-border;
+}
+
+.mdx-content td {
+  @apply px-4 py-2 border border-border;
+}
+
+.mdx-content code:not(pre code) {
+  @apply px-1.5 py-0.5 rounded-md bg-muted text-sm font-mono;
+}
+
+.mdx-content pre {
+  @apply my-0 p-0 rounded-b-lg overflow-x-auto;
+}
+
+.mdx-content pre code {
+  @apply text-sm font-mono;
+}
+
+/* ============================
+   Code Block Component Styles
+   ============================ */
+
+.code-block-wrapper {
+  @apply my-4 rounded-lg overflow-hidden;
+  border: 1px solid var(--border);
+}
+
+.code-block-header {
+  @apply flex items-center justify-between px-4 py-2;
+  background: oklch(0.22 0 0);
+  border-bottom: 1px solid var(--border);
+}
+
+.dark .code-block-header {
+  background: oklch(0.16 0 0);
+}
+
+.code-block-language {
+  @apply text-xs font-mono uppercase tracking-wide;
+  color: oklch(0.7 0.12 200);
+}
+
+.code-block-copy-btn {
+  @apply p-1.5 rounded-md transition-all duration-200;
+  color: oklch(0.6 0 0);
+  background: transparent;
+}
+
+.code-block-copy-btn:hover {
+  @apply scale-105;
+  color: oklch(0.9 0 0);
+  background: oklch(0.3 0 0);
+}
+
+.code-block-copy-btn:active {
+  @apply scale-95;
+}
+
+.code-block-pre {
+  @apply m-0 p-4 overflow-x-auto;
+}
+
+/* Shiki generates its own background, so we override code styling */
+.code-block-pre code {
+  @apply text-sm font-mono leading-relaxed block;
+  white-space: pre-wrap;
+}
+
+/* Shiki wraps highlighted code in a pre > code structure */
+.code-block-pre pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+/* Ensure Shiki's inline styles are preserved but font is consistent */
+.code-block-pre [style] {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+.mdx-content a {
+  @apply text-primary underline underline-offset-4 hover:text-primary/80 transition-colors;
+}
+
+.mdx-content img {
+  @apply my-4 rounded-lg max-w-full;
+}
+
+.mdx-content hr {
+  @apply my-8 border-t border-border;
+}
+
+/* ============================
+   Animation Utilities
+   ============================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* ============================
+   Selection
+   ============================ */
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
 }
