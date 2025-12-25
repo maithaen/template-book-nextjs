@@ -51,17 +51,19 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem("language", lang);
+    // Also set cookie for server-side access
+    document.cookie = `language=${lang};path=/;max-age=31536000`; // 1 year
   }, []);
-
-  const t = useCallback(
-    (key: TranslationKeys): string => {
-      return translations[language][key] || key;
-    },
-    [language]
-  );
 
   // Prevent hydration mismatch by using server language until mounted
   const effectiveLanguage = mounted ? language : "en";
+
+  const t = useCallback(
+    (key: TranslationKeys): string => {
+      return translations[effectiveLanguage][key] || key;
+    },
+    [effectiveLanguage]
+  );
 
   return (
     <LanguageContext.Provider value={{ language: effectiveLanguage, setLanguage, t }}>

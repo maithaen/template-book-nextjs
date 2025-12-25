@@ -24,19 +24,34 @@ export function TableOfContents({ content }: TableOfContentsProps) {
     const headingRegex = /^(#{2,4})\s+(.+)$/gm;
     const extracted: Heading[] = [];
     let match;
+    let index = 0;
     
     while ((match = headingRegex.exec(content)) !== null) {
       const level = match[1].length;
       const text = match[2].trim();
-      const id = text
+      let id = text
         .toLowerCase()
         .replace(/[^\w\s-]/g, "")
         .replace(/\s+/g, "-");
       
+      // Fallback to index-based ID if the generated ID is empty
+      if (!id) {
+        id = `heading-${index}`;
+      }
+      
       extracted.push({ id, text, level });
+      index++;
     }
     
-    return extracted;
+    // Filter out any duplicate IDs to ensure unique keys
+    const seenIds = new Set<string>();
+    return extracted.filter((heading) => {
+      if (seenIds.has(heading.id)) {
+        return false;
+      }
+      seenIds.add(heading.id);
+      return true;
+    });
   }, [content]);
 
   // Scroll tracking
