@@ -40,7 +40,7 @@ A modern, beautiful, and feature-rich Next.js template for creating online books
 
 ```bash
 # Clone the template
-git clone https://github.com/your-repo/template-book-nextjs.git my-book
+git clone https://github.com/maithaen/template-book-nextjs.git my-book
 cd my-book
 
 # Install dependencies
